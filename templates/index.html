@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vends ERP - Esqueleto de Gestión</title>
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Slim Sidebar Navigation (Estilo Screenshot) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-info" title="Alternar menú">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" class="brand-logo-img" alt="Vendss Clean">
+                    <span class="brand-name">Vendss Clean</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#suppliers" class="menu-item active" data-tab="suppliers" data-tooltip="Proveedores">
+                    <i class="fa-solid fa-truck-field"></i>
+                    <span class="menu-text">Proveedores</span>
+                </a>
+                <a href="#products" class="menu-item" data-tab="products" data-tooltip="Inventario">
+                    <i>•</i>
+                    <span class="menu-text">Pestaña1</span>
+                </a>
+                <a href="#clients" class="menu-item" data-tab="clients" data-tooltip="Clientes">
+                    <i>•</i>
+                    <span class="menu-text">Pestaña2</span>
+                </a>
+                <a href="#new-sale" class="menu-item" data-tab="new-sale" data-tooltip="Nueva Venta">
+                    <i>•</i>
+                    <span class="menu-text">Pestaña3</span>
+                </a>
+                <a href="#sales-history" class="menu-item" data-tab="sales-history" data-tooltip="Historial Ventas">
+                    <i>•</i>
+                    <span class="menu-text">Pestaña4</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="page-breadcrumbs">
+                    <h1 id="current-tab-title">Vends ERP</h1>
+                </div>
+                <div class="topbar-actions" id="topbar-actions-container">
+                    <!-- Acciones globales del header -->
+                </div>
+            </header>
+
+            <!-- Alerts Container -->
+            <div id="alert-container"></div>
+
+            <!-- Suppliers View -->
+            <section id="suppliers" class="tab-panel active">
+                <div class="layout-grid">
+                    <!-- Left Column: Form Card -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-truck-ramp-box"></i> Registrar Proveedor</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="supplier-form" onsubmit="event.preventDefault(); addSupplierSimulated();">
+                                <div class="form-group">
+                                    <label>CÓDIGO DE PROVEEDOR *</label>
+                                    <input type="text" id="sup-code" class="form-control" placeholder="Ej. PROV-001" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>NOMBRE COMERCIAL *</label>
+                                    <input type="text" id="sup-name" class="form-control" placeholder="Ej. Aceros de México" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>RAZÓN SOCIAL *</label>
+                                    <input type="text" id="sup-legal" class="form-control" placeholder="Ej. Aceros del Norte S.A. de C.V." required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 16px;">
+                                    <i class="fa-solid fa-circle-check"></i> Guardar Proveedor
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Registered Suppliers list -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-table-list"></i> Proveedores Registrados</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Nombre Comercial</th>
+                                            <th>Razón Social</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="suppliers-table-body">
+                                        <tr>
+                                            <td><code>PROV-001</code></td>
+                                            <td><strong>Suministros Industriales</strong></td>
+                                            <td>Suministros del Norte S.A. de C.V.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>PROV-002</code></td>
+                                            <td><strong>Aceros de México</strong></td>
+                                            <td>Aceros Nacionales S.A. de C.V.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products View (Esqueleto) -->
+            <section id="products" class="tab-panel">
+                <div class="panel-skeleton">
+                    <div class="skeleton-header">
+                        <h2>Esqueleto: Inventario</h2>
+                        <p>Sección destinada a la administración del catálogo de productos (CRUD).</p>
+                    </div>
+                    <div class="skeleton-body">
+                        <div class="skeleton-table"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Clients View (Esqueleto) -->
+            <section id="clients" class="tab-panel">
+                <div class="panel-skeleton">
+                    <div class="skeleton-header">
+                        <h2>Esqueleto: Clientes</h2>
+                        <p>Sección destinada a la gestión del directorio de clientes.</p>
+                    </div>
+                    <div class="skeleton-body">
+                        <div class="skeleton-table"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- New Sale View (Esqueleto) -->
+            <section id="new-sale" class="tab-panel">
+                <div class="panel-skeleton">
+                    <div class="skeleton-header">
+                        <h2>Esqueleto: Nueva Venta</h2>
+                        <p>Sección destinada al formulario y facturación de nuevas ventas.</p>
+                    </div>
+                    <div class="skeleton-body">
+                        <div class="skeleton-split-layout">
+                            <div class="skeleton-left-pane"></div>
+                            <div class="skeleton-right-pane"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sales History View (Esqueleto) -->
+            <section id="sales-history" class="tab-panel">
+                <div class="panel-skeleton">
+                    <div class="skeleton-header">
+                        <h2>Esqueleto: Historial de Ventas</h2>
+                        <p>Sección destinada a la visualización y auditoría de transacciones.</p>
+                    </div>
+                    <div class="skeleton-body">
+                        <div class="skeleton-table"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
