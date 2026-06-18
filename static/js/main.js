@@ -40,37 +40,74 @@ function showAlert(message, type = 'success') {
 }
 
 // --- SISTEMA DE PESTAÑAS (SPA) ---
-function initTabs() {
+function switchTab(tabId) {
     const menuItems = document.querySelectorAll('.menu-item');
     const tabPanels = document.querySelectorAll('.tab-panel');
     const tabTitle = document.getElementById('current-tab-title');
+    const breadcrumb = document.getElementById('breadcrumb-back');
 
+    // 1. Actualizar estado activo en el menú lateral
+    let activeItem = null;
+    menuItems.forEach(item => {
+        if (item.getAttribute('data-tab') === tabId) {
+            item.classList.add('active');
+            activeItem = item;
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    // 2. Mostrar el panel correspondiente
+    tabPanels.forEach(panel => {
+        if (panel.id === tabId) {
+            panel.classList.add('active');
+        } else {
+            panel.classList.remove('active');
+        }
+    });
+
+    // 3. Controlar la visibilidad de la miga de pan "Volver al Dashboard"
+    if (breadcrumb) {
+        if (tabId === 'dashboard') {
+            breadcrumb.style.display = 'none';
+        } else {
+            breadcrumb.style.display = 'inline-flex';
+        }
+    }
+
+    // 4. Actualizar título de la barra superior
+    if (tabTitle) {
+        if (activeItem) {
+            const textEl = activeItem.querySelector('.menu-text');
+            if (textEl) {
+                tabTitle.textContent = textEl.textContent;
+            }
+        } else {
+            // Mapeo para pestañas que no se encuentran directamente en la barra lateral
+            const customTitles = {
+                'materia-prima': 'Materias Primas',
+                'subreceta': 'Subrecetas',
+                'solicitud-compra': 'Solicitudes de Compra'
+            };
+            tabTitle.textContent = customTitles[tabId] || tabId;
+        }
+    }
+}
+
+// Exponer de forma global para que el onclick del HTML pueda acceder a la función
+window.switchTab = switchTab;
+
+function initTabs() {
+    const menuItems = document.querySelectorAll('.menu-item');
     menuItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const targetTab = item.getAttribute('data-tab');
-
-            // Actualizar menú activo
-            menuItems.forEach(mi => mi.classList.remove('active'));
-            item.classList.add('active');
-
-            // Mostrar panel correcto
-            tabPanels.forEach(panel => {
-                if (panel.id === targetTab) {
-                    panel.classList.add('active');
-                } else {
-                    panel.classList.remove('active');
-                }
-            });
-
-            // Actualizar título de barra superior
-            const textEl = item.querySelector('.menu-text');
-            if (tabTitle && textEl) {
-                tabTitle.textContent = textEl.textContent;
-            }
+            switchTab(targetTab);
         });
     });
 }
+
 
 // --- SIMULACIÓN DE REGISTRO DE PROVEEDOR ---
 function addSupplierSimulated() {

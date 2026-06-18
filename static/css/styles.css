@@ -1,53 +1,68 @@
 /* Variables del Sistema de Diseño (Paleta de Azules) */
 :root {
     --font-primary: 'Manrope', sans-serif;
-    
+
     /* Colores HSL - Paleta de Azules */
-    --color-bg-app: hsl(215, 35%, 96.5%);       /* Fondo general (Azul grisáceo claro) */
-    --color-bg-card: hsl(0, 0%, 100%);          /* Fondo de tarjetas (Blanco) */
-    
+    --color-bg-app: hsl(215, 35%, 96.5%);
+    /* Fondo general (Azul grisáceo claro) */
+    --color-bg-card: hsl(0, 0%, 100%);
+    /* Fondo de tarjetas (Blanco) */
+
     /* Sidebar */
-    --color-sidebar: hsl(0, 0%, 100%);          /* Sidebar blanco como el screenshot */
+    --color-sidebar: hsl(0, 0%, 100%);
+    /* Sidebar blanco como el screenshot */
     --color-sidebar-border: hsl(215, 20%, 91%);
-    --color-sidebar-item: hsl(215, 12%, 45%);   /* Icono inactivo */
-    --color-sidebar-active-bg: hsl(220, 85%, 20%); /* Azul oscuro/marino profundo para activo */
-    --color-sidebar-active-icon: hsl(0, 0%, 100%); /* Blanco */
-    
+    --color-sidebar-item: hsl(215, 12%, 45%);
+    /* Icono inactivo */
+    --color-sidebar-active-bg: hsl(220, 85%, 20%);
+    /* Azul oscuro/marino profundo para activo */
+    --color-sidebar-active-icon: hsl(0, 0%, 100%);
+    /* Blanco */
+
     /* Colores Primarios y Secundarios */
-    --color-primary: hsl(215, 80%, 48%);        /* Azul Cobalto */
+    --color-primary: hsl(215, 80%, 48%);
+    /* Azul Cobalto */
     --color-primary-hover: hsl(215, 80%, 40%);
-    --color-primary-light: hsl(215, 85%, 94%);  /* Azul cielo muy suave */
-    
-    --color-secondary: hsl(215, 20%, 35%);      /* Azul pizarra */
+    --color-primary-light: hsl(215, 85%, 94%);
+    /* Azul cielo muy suave */
+
+    --color-secondary: hsl(215, 20%, 35%);
+    /* Azul pizarra */
     --color-secondary-hover: hsl(215, 20%, 25%);
     --color-secondary-light: hsl(215, 20%, 93%);
-    
+
     /* Estados / Alertas */
-    --color-success: hsl(155, 75%, 38%);        /* Verde esmeralda */
+    --color-success: hsl(155, 75%, 38%);
+    /* Verde esmeralda */
     --color-success-light: hsl(155, 75%, 95%);
-    
-    --color-warning: hsl(38, 95%, 48%);         /* Amber */
+
+    --color-warning: hsl(38, 95%, 48%);
+    /* Amber */
     --color-warning-light: hsl(38, 95%, 94%);
-    
-    --color-danger: hsl(355, 75%, 48%);         /* Rojo */
+
+    --color-danger: hsl(355, 75%, 48%);
+    /* Rojo */
     --color-danger-hover: hsl(355, 75%, 42%);
     --color-danger-light: hsl(355, 75%, 95%);
-    
-    --color-text-main: hsl(220, 30%, 18%);      /* Azul marino oscuro para texto principal */
+
+    --color-text-main: hsl(220, 30%, 18%);
+    /* Azul marino oscuro para texto principal */
     --color-text-secondary: hsl(221, 75%, 63%);
-    --color-text-muted: hsl(215, 15%, 52%);     /* Gris azulado atenuado */
-    --color-border: hsl(215, 20%, 90%);         /* Borde suave */
+    --color-text-muted: hsl(215, 15%, 52%);
+    /* Gris azulado atenuado */
+    --color-border: hsl(215, 20%, 90%);
+    /* Borde suave */
     --color-border-hover: hsl(215, 30%, 80%);
-    
+
     /* Sombras y Bordes */
     --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.03);
     --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.02);
     --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
-    
+
     --radius-sm: 6px;
     --radius-md: 8px;
     --radius-lg: 12px;
-    
+
     --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -358,8 +373,15 @@ body {
 }
 
 @keyframes slideIn {
-    from { transform: translateY(-8px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(-8px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Contenedores de Pestañas */
@@ -374,8 +396,13 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Secciones de Tabla/Listados */
@@ -473,7 +500,8 @@ body {
     font-size: 14px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     padding: 14px 20px;
     border-bottom: 1px solid var(--color-border);
     vertical-align: middle;
@@ -884,8 +912,15 @@ textarea.form-control {
 }
 
 @keyframes modalSlide {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-header {
@@ -1089,8 +1124,13 @@ textarea.form-control {
 }
 
 @keyframes loadingPulse {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* --- ESTILOS DEL FORMULARIO DE PROVEEDOR (Estilo de la Captura) --- */
@@ -1259,4 +1299,90 @@ textarea.form-control {
     box-shadow: 0 6px 18px rgba(37, 99, 235, 0.2);
 }
 
+/* --- ESTILOS ADICIONALES PARA DASHBOARD --- */
+.dashboard-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
 
+.placeholder-alert-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1.5px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    background-color: var(--color-bg-app);
+    transition: var(--transition);
+}
+
+.placeholder-alert-box:hover {
+    border-color: var(--color-border-hover);
+    background-color: hsl(215, 30%, 98%);
+}
+
+.shortcut-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    gap: 10px;
+    width: 100%;
+}
+
+.shortcut-btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+    background-color: hsl(215, 80%, 99%);
+}
+
+.shortcut-btn:active {
+    transform: translateY(0);
+}
+
+.shortcut-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.shortcut-btn:hover .shortcut-icon {
+    transform: scale(1.05);
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 33px;
+    margin-top: 6px;
+}
+
+@media (max-width: 992px) {
+    .shortcuts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .shortcuts-grid {
+        grid-template-columns: 1fr;
+    }
+}
