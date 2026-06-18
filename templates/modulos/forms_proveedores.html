@@ -1,0 +1,579 @@
+<!-- Suppliers View -->
+<section id="suppliers" class="tab-panel">
+    <div class="supplier-wizard-card">
+        
+        <!-- Botones de navegación superior (Se activan/desactivan según el paso) -->
+        <div class="wizard-step-top-nav" id="top-nav-step-1">
+            <div class="wizard-buttons-top">
+                <span></span><!-- Alineación derecha -->
+                <button type="button" class="btn btn-primary" onclick="goToStep(2)">
+                    Siguiente Paso (Documentación) <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="wizard-step-top-nav" id="top-nav-step-2" style="display: none;">
+            <div class="wizard-buttons-top">
+                <button type="button" class="btn btn-secondary" onclick="goToStep(1)">
+                    <i class="fa-solid fa-arrow-left"></i> Atrás (Datos Generales)
+                </button>
+                <button type="button" class="btn btn-primary" onclick="goToStep(3)">
+                    Siguiente Paso (Vista Previa) <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="wizard-step-top-nav" id="top-nav-step-3" style="display: none;">
+            <div class="wizard-buttons-top">
+                <button type="button" class="btn btn-secondary" onclick="goToStep(2)">
+                    <i class="fa-solid fa-arrow-left"></i> Atrás (Documentación)
+                </button>
+                <button type="submit" class="btn btn-success" form="supplier-form">
+                    <i class="fa-solid fa-circle-check"></i> Confirmar y Registrar Proveedor
+                </button>
+            </div>
+        </div>
+
+        <!-- Wizard Progress Header -->
+        <div class="wizard-header">
+            <div class="wizard-step-indicator active" id="indicator-1">
+                <div class="indicator-number">1</div>
+                <div class="indicator-label">Datos Generales</div>
+            </div>
+            <div class="wizard-progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="wizard-step-indicator" id="indicator-2">
+                <div class="indicator-number">2</div>
+                <div class="indicator-label">Documentación</div>
+            </div>
+            <div class="wizard-progress-bar">
+                <div class="progress-fill-2" id="progress-fill-2"></div>
+            </div>
+            <div class="wizard-step-indicator" id="indicator-3">
+                <div class="indicator-number">3</div>
+                <div class="indicator-label">Ficha de Resumen</div>
+            </div>
+        </div>
+
+        <!-- Wizard Card Body -->
+        <div class="wizard-card-body">
+            <form id="supplier-form" onsubmit="event.preventDefault(); addSupplierSimulated();">
+                
+                <!-- PASO 1: DATOS GENERALES -->
+                <div class="wizard-step-content active" id="step-1">
+                    
+                    <!-- Sección 1: Datos Básicos y Fiscales -->
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-address-card"></i> Datos Básicos y Fiscales
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>CÓDIGO DE PROVEEDOR *</label>
+                                <input type="text" id="sup-code" class="form-control" placeholder="Ej. PROV-0001" required>
+                            </div>
+                            <div class="form-group">
+                                <label>NOMBRE COMERCIAL *</label>
+                                <input type="text" id="sup-name" class="form-control" placeholder="Ej. LA FÓRMULA" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>RAZÓN SOCIAL *</label>
+                                <input type="text" id="sup-legal" class="form-control" placeholder="Ej. LA FÓRMULA S.A. de C.V." required>
+                            </div>
+                            <div class="form-group">
+                                <label>RFC *</label>
+                                <input type="text" id="sup-rfc" class="form-control" placeholder="Ej. ANM010101AB2" maxlength="13" required>
+                            </div>
+                            <div class="form-group">
+                                <label>RÉGIMEN FISCAL *</label>
+                                <select id="sup-regimen" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="General de Ley Personas Morales">601 - General de Ley Personas Morales</option>
+                                    <option value="Personas Físicas con Actividades Empresariales y Profesionales">612 - Personas Físicas con Actividades Empresariales</option>
+                                    <option value="Régimen Simplificado de Confianza (RESICO)">626 - Régimen Simplificado de Confianza (RESICO)</option>
+                                    <option value="Sueldos y Salarios">605 - Sueldos y Salarios</option>
+                                    <option value="Sin obligaciones fiscales">616 - Sin obligaciones fiscales</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>TIPO DE PROVEEDOR *</label>
+                                <select id="sup-tipo" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="Materia prima">Materia prima</option>
+                                    <option value="Envases">Envases</option>
+                                    <option value="Tapas">Tapas</option>
+                                    <option value="Etiquetas">Etiquetas</option>
+                                    <option value="Flete">Flete</option>
+                                    <option value="Servicios">Servicios</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>CATEGORÍA PRINCIPAL *</label>
+                                <select id="sup-categoria" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="Químicos">Químicos</option>
+                                    <option value="Esencias">Esencias</option>
+                                    <option value="Colorantes">Colorantes</option>
+                                    <option value="Envases">Envases</option>
+                                    <option value="Tapas">Tapas</option>
+                                    <option value="Etiquetas">Etiquetas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>ESTATUS *</label>
+                                <select id="sup-estatus" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="Prospecto">Prospecto</option>
+                                    <option value="En revisión">En revisión</option>
+                                    <option value="Aprobado">Aprobado</option>
+                                    <option value="Suspendido">Suspendido</option>
+                                    <option value="Bloqueado">Bloqueado</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 2: Información de Contacto -->
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-address-book"></i> Información de Contacto
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>CONTACTO PRINCIPAL *</label>
+                                <input type="text" id="sup-contacto" class="form-control" placeholder="Nombre del contacto" required>
+                            </div>
+                            <div class="form-group">
+                                <label>WHATSAPP DE PEDIDOS *</label>
+                                <input type="text" id="sup-whatsapp" class="form-control" placeholder="Ej. +52 1 55..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>CORREO ELECTRÓNICO</label>
+                                <input type="email" id="sup-correo" class="form-control" placeholder="contacto@proveedor.com">
+                            </div>
+                            <div class="form-group">
+                                <label>TELÉFONO *</label>
+                                <input type="text" id="sup-telefono" class="form-control" placeholder="Ej. 55 1234 5678" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>DIRECCIÓN FISCAL *</label>
+                                <textarea id="sup-dir-fiscal" class="form-control" placeholder="Calle, Número, Col., C.P., Ciudad, Estado" required></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>DIRECCIÓN DE RECOLECCIÓN/ENTREGA</label>
+                                <textarea id="sup-dir-entrega" class="form-control" placeholder="Dirección del almacén o punto de recolección"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 3: Condiciones y Logística -->
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-truck-moving"></i> Condiciones y Logística
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>CONDICIÓN DE PAGO *</label>
+                                <select id="sup-condicion-pago" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="Contado">Contado</option>
+                                    <option value="Crédito">Crédito</option>
+                                    <option value="Anticipo">Anticipo</option>
+                                    <option value="Contra entrega">Contra entrega</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>DÍAS DE CRÉDITO</label>
+                                <input type="number" id="sup-credito" class="form-control" placeholder="Ej. 30" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>PEDIDO MÍNIMO</label>
+                                <input type="number" id="sup-minimo" class="form-control" placeholder="Ej. 5000" min="0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>TIEMPO DE ENTREGA ESTÁNDAR *</label>
+                                <input type="text" id="sup-entrega" class="form-control" placeholder="Ej. 3 a 5 días hábiles" required>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="sup-flete">
+                                <label for="sup-flete">¿Maneja flete?</label>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="sup-flete-incluido">
+                                <label for="sup-flete-incluido">¿Flete incluido?</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 4: Datos Bancarios -->
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-building-columns"></i> Datos Bancarios
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>BANCO</label>
+                                <select id="sup-banco" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="BBVA">BBVA</option>
+                                    <option value="Santander">Santander</option>
+                                    <option value="Banorte">Banorte</option>
+                                    <option value="CitiBanamex">CitiBanamex</option>
+                                    <option value="HSBC">HSBC</option>
+                                    <option value="Scotiabank">Scotiabank</option>
+                                    <option value="Banregio">Banregio</option>
+                                    <option value="Otro">Otro / Extranjero</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>CUENTA BANCARIA</label>
+                                <input type="text" id="sup-cuenta" class="form-control" placeholder="Ej. 0123456789">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>CLABE INTERBANCARIA</label>
+                                <input type="text" id="sup-clabe" class="form-control" placeholder="18 dígitos" maxlength="22">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>BENEFICIARIO</label>
+                                <input type="text" id="sup-beneficiario" class="form-control" placeholder="Nombre completo o Razón Social del beneficiario">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 5: Otros -->
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-ellipsis"></i> Otros
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group full-width">
+                                <label>OBSERVACIONES</label>
+                                <textarea id="sup-observaciones" class="form-control" placeholder="Notas adicionales o comentarios generales"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de navegación Paso 1 -->
+                    <div class="wizard-buttons">
+                        <span></span><!-- Alineación derecha -->
+                        <button type="button" class="btn btn-primary" onclick="goToStep(2)">
+                            Siguiente Paso (Documentación) <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASO 2: SUBIR DOCUMENTOS -->
+                <div class="wizard-step-content" id="step-2">
+                    
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-file-arrow-up"></i> Documentación del Proveedor
+                        </div>
+                        <p class="section-subtitle" style="margin-bottom: 24px;">Suba los siguientes 7 documentos requeridos para la alta del proveedor (Formatos aceptados: PDF, Excel, Imágenes).</p>
+                        
+                        <div class="document-upload-grid">
+                            
+                            <!-- 1. Constancia de Situación Fiscal -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Constancia de Situación Fiscal *</span>
+                                    <span class="doc-format">PDF</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-sat-constancia">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-sat-constancia" class="file-input-hidden" accept=".pdf,image/*">
+                                <div class="selected-file-name" id="file-name-sat-constancia">Ningún archivo seleccionado</div>
+                            </div>
+
+                            <!-- 2. Lista de precios -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Lista de precios *</span>
+                                    <span class="doc-format">PDF / Excel / Imagen</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-lista-precios">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-lista-precios" class="file-input-hidden" accept=".pdf,image/*">
+                                <div class="selected-file-name" id="file-name-lista-precios">Ningún archivo seleccionado</div>
+                            </div>
+
+                            <!-- 3. Carátula bancaria -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Carátula bancaria</span>
+                                    <span class="doc-format">PDF / Imagen</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-caratula-bancaria">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-caratula-bancaria" class="file-input-hidden" accept=".pdf,image/*">
+                                <div class="selected-file-name" id="file-name-caratula-bancaria">Ningún archivo seleccionado</div>
+                            </div>
+
+                            <!-- 4. Fichas técnicas de materiales -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Fichas técnicas de materiales *</span>
+                                    <span class="doc-format">PDF / Imagen</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-fichas-tecnicas">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-fichas-tecnicas" class="file-input-hidden" accept=".pdf,image/*">
+                                <div class="selected-file-name" id="file-name-fichas-tecnicas">Ningún archivo seleccionado</div>
+                            </div>
+
+                            <!-- 5. Hojas de seguridad / SDS  -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-file-shield"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Hojas de seguridad / SDS *</span>
+                                    <span class="doc-format">PDF / Imagen</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-sds">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-sds" class="file-input-hidden" accept=".pdf">
+                                <div class="selected-file-name" id="file-name-sds">Ningún archivo seleccionado (Opcional)</div>
+                            </div>
+
+                            <!-- 6. Certificados de calidad -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Certificados de calidad</span>
+                                    <span class="doc-format">PDF / Imagen</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-certificados-calidad">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-certificados-calidad" class="file-input-hidden" accept=".pdf,image/*">
+                                <div class="selected-file-name" id="file-name-certificados-calidad">Ningún archivo seleccionado</div>
+                            </div>
+
+                            <!-- 7. Condiciones comerciales -->
+                            <div class="upload-card">
+                                <div class="upload-icon"><i class="fa-solid fa-file-signature"></i></div>
+                                <div class="upload-info">
+                                    <span class="doc-title">Condiciones comerciales</span>
+                                    <span class="doc-format">PDF / Excel / Imagen</span>
+                                </div>
+                                <label class="btn btn-secondary btn-sm upload-btn" for="doc-condiciones-comerciales">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                                </label>
+                                <input type="file" id="doc-condiciones-comerciales" class="file-input-hidden" accept=".pdf,.xls,.xlsx,image/*">
+                                <div class="selected-file-name" id="file-name-condiciones-comerciales">Ningún archivo seleccionado</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Botones de navegación Paso 2 -->
+                    <div class="wizard-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="goToStep(1)">
+                            <i class="fa-solid fa-arrow-left"></i> Atrás (Datos Generales)
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="goToStep(3)">
+                            Siguiente Paso (Vista Previa) <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASO 3: VISTA PREVIA Y CONFIRMACIÓN -->
+                <div class="wizard-step-content" id="step-3">
+                    
+                    <div class="supplier-form-section">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-file-invoice"></i> Vista Previa del Registro
+                        </div>
+                        <p class="section-subtitle" style="margin-bottom: 24px;">A continuación se presenta un resumen ordenado y formateado de los datos capturados.</p>
+                        
+                        <div class="preview-consolidated-layout">
+                            
+                            <!-- Grupo 1: Datos Fiscales -->
+                            <div class="preview-group">
+                                <div class="preview-group-title">Datos Básicos y Fiscales</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Código de proveedor</td>
+                                        <td><span id="resumen-code">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nombre comercial</td>
+                                        <td><span id="resumen-name">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Razón social</td>
+                                        <td><span id="resumen-legal">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>RFC</td>
+                                        <td><span id="resumen-rfc">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Régimen fiscal</td>
+                                        <td><span id="resumen-regimen">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de proveedor</td>
+                                        <td><span id="resumen-tipo">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Categoría principal</td>
+                                        <td><span id="resumen-categoria">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Estatus</td>
+                                        <td><span id="resumen-estatus">-</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo 2: Contacto -->
+                            <div class="preview-group">
+                                <div class="preview-group-title">Información de Contacto</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Contacto principal</td>
+                                        <td><span id="resumen-contacto">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>WhatsApp de pedidos</td>
+                                        <td><span id="resumen-whatsapp">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Correo electrónico</td>
+                                        <td><span id="resumen-correo">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Teléfono</td>
+                                        <td><span id="resumen-telefono">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dirección fiscal</td>
+                                        <td id="resumen-dir-fiscal" class="text-multiline">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dirección recolección/entrega</td>
+                                        <td id="resumen-dir-entrega" class="text-multiline">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo 3: Condiciones -->
+                            <div class="preview-group">
+                                <div class="preview-group-title">Condiciones y Logística</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Condición de pago</td>
+                                        <td><span id="resumen-condicion-pago">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Días de crédito</td>
+                                        <td><span id="resumen-credito">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pedido mínimo</td>
+                                        <td><span id="resumen-minimo">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tiempo de entrega estándar</td>
+                                        <td><span id="resumen-entrega">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>¿Maneja flete?</td>
+                                        <td><span id="resumen-flete">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>¿Flete incluido?</td>
+                                        <td><span id="resumen-flete-incluido">-</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo 4: Datos Bancarios -->
+                            <div class="preview-group">
+                                <div class="preview-group-title">Datos Bancarios</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Banco</td>
+                                        <td><span id="resumen-banco">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuenta bancaria</td>
+                                        <td><span id="resumen-cuenta">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>CLABE interbancaria</td>
+                                        <td><span id="resumen-clabe">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Beneficiario</td>
+                                        <td><span id="resumen-beneficiario">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Observaciones</td>
+                                        <td id="resumen-observaciones" class="text-multiline">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo 5: Documentos subidos -->
+                            <div class="preview-group full-width">
+                                <div class="preview-group-title">Documentos Adjuntos</div>
+                                <div class="preview-files-list">
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Constancia de Situación Fiscal</span>
+                                        <span class="file-resumen-val" id="resumen-file-sat-constancia">Ningún archivo adjunto</span>
+                                    </div>
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Opinión de Cumplimiento SAT</span>
+                                        <span class="file-resumen-val" id="resumen-file-sat-opinion">Ningún archivo adjunto</span>
+                                    </div>
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Comprobante de Domicilio</span>
+                                        <span class="file-resumen-val" id="resumen-file-domicilio">Ningún archivo adjunto</span>
+                                    </div>
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Identificación Oficial</span>
+                                        <span class="file-resumen-val" id="resumen-file-identificacion">Ningún archivo adjunto</span>
+                                    </div>
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Acta Constitutiva</span>
+                                        <span class="file-resumen-val" id="resumen-file-acta">Ningún archivo adjunto (Opcional)</span>
+                                    </div>
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Carátula de Estado de Cuenta</span>
+                                        <span class="file-resumen-val" id="resumen-file-cuenta">Ningún archivo adjunto</span>
+                                    </div>
+                                    <div class="file-resumen-item">
+                                        <span class="file-resumen-label">Carta de Autorización</span>
+                                        <span class="file-resumen-val" id="resumen-file-autorizacion">Ningún archivo adjunto</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Botones de navegación Paso 3 -->
+                    <div class="wizard-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="goToStep(2)">
+                            <i class="fa-solid fa-arrow-left"></i> Atrás (Documentación)
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-circle-check"></i> Confirmar y Registrar Proveedor
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>

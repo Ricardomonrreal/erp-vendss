@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Módulos CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modulos/forms_proveedores.css') }}">
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 </head>
@@ -30,11 +32,11 @@
                 </div>
             </div>
             <nav class="sidebar-menu">
-                <a href="#dashboard" class="menu-item active" data-tab="dashboard" data-tooltip="Inicio">
+                <a href="#dashboard" class="menu-item" data-tab="dashboard" data-tooltip="Inicio">
                     <i class="fa-solid fa-chart-line"></i>
                     <span class="menu-text">Inicio</span>
                 </a>
-                <a href="#suppliers" class="menu-item" data-tab="suppliers" data-tooltip="Proveedores">
+                <a href="#suppliers" class="menu-item active" data-tab="suppliers" data-tooltip="Proveedores">
                     <i class="fa-solid fa-truck-field"></i>
                     <span class="menu-text">Proveedores</span>
                 </a>
@@ -77,195 +79,10 @@
             <div id="alert-container"></div>
 
             <!-- Dashboard View -->
-            <section id="dashboard" class="tab-panel active" style="padding: 16px 24px;">
-                <div class="dashboard-header" style="margin-bottom: 12px;">
-                    <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-main);">Dashboard de
-                        Operaciones</h2>
-                    <p style="color: var(--color-text-muted); font-size: 13px;">Vista general y accesos rápidos del
-                        sistema.</p>
-                </div>
 
-                <!-- Sección de Alertas -->
-                <div class="layout-grid" style="grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-                    <!-- Alertas de Materias Primas -->
-                    <div class="grid-card">
-                        <div class="card-header"
-                            style="padding: 8px 14px; background-color: var(--color-danger-light); border-bottom: 1px solid hsl(355, 75%, 90%);">
-                            <h2 style="color: var(--color-danger); font-size: 12.5px; font-weight: 600;"><i
-                                    class="fa-solid fa-circle-exclamation"></i> Alertas: Materias Primas</h2>
-                        </div>
-                        <div class="card-body" style="padding: 10px 14px;">
-                            <div class="placeholder-alert-box">
-                                <i class="fa-solid fa-box" style="color: var(--color-danger);"></i>
-                                <div>
-                                    <p
-                                        style="font-weight: 600; font-size: 12.5px; color: var(--color-text-main); margin-bottom: 1px;">
-                                        [Placeholder: Alertas de Materias Primas]</p>
-                                    <p style="font-size: 11px; color: var(--color-text-muted); margin: 0;">Espacio
-                                        reservado para notificaciones de stock mínimo o desabasto.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alertas de Proveedores Pendientes -->
-                    <div class="grid-card">
-                        <div class="card-header"
-                            style="padding: 8px 14px; background-color: var(--color-warning-light); border-bottom: 1px solid hsl(38, 95%, 90%);">
-                            <h2 style="color: var(--color-warning); font-size: 12.5px; font-weight: 600;"><i
-                                    class="fa-solid fa-triangle-exclamation"></i> Alertas: Proveedores Pendientes</h2>
-                        </div>
-                        <div class="card-body" style="padding: 10px 14px;">
-                            <div class="placeholder-alert-box">
-                                <i class="fa-solid fa-truck-ramp-box" style="color: var(--color-warning);"></i>
-                                <div>
-                                    <p
-                                        style="font-weight: 600; font-size: 12.5px; color: var(--color-text-main); margin-bottom: 1px;">
-                                        [Placeholder: Proveedores Pendientes]</p>
-                                    <p style="font-size: 11px; color: var(--color-text-muted); margin: 0;">Espacio
-                                        reservado para autorizaciones o documentos de validación.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Grid de accesos rápidos -->
-                <div class="grid-card">
-                    <div class="card-header" style="padding: 8px 14px;">
-                        <h2 style="font-size: 12.5px; font-weight: 600;"><i class="fa-solid fa-compass"></i> Accesos
-                            Rápidos y Redirección</h2>
-                    </div>
-                    <div class="card-body" style="padding: 12px 14px;">
-                        <div class="shortcuts-grid">
-
-                            <button onclick="switchTab('materia-prima')" class="shortcut-btn">
-                                <div class="shortcut-icon"
-                                    style="background-color: var(--color-primary-light); color: var(--color-primary);">
-                                    <i class="fa-solid fa-wheat-awn"></i>
-                                </div>
-                                <div style="display: flex; flex-direction: column;">
-                                    <span
-                                        style="font-weight: 600; font-size: 13px; color: var(--color-text-main); margin-bottom: 1px;">Ingresar
-                                        Materia Prima</span>
-                                    <span style="font-size: 11px; color: var(--color-text-muted);">Ir al formulario de
-                                        materias primas</span>
-                                </div>
-                            </button>
-
-                            <button onclick="switchTab('suppliers')" class="shortcut-btn">
-                                <div class="shortcut-icon"
-                                    style="background-color: hsl(155, 75%, 95%); color: var(--color-success);">
-                                    <i class="fa-solid fa-truck-field"></i>
-                                </div>
-                                <div style="display: flex; flex-direction: column;">
-                                    <span
-                                        style="font-weight: 600; font-size: 13px; color: var(--color-text-main); margin-bottom: 1px;">Ingresar
-                                        Proveedor</span>
-                                    <span style="font-size: 11px; color: var(--color-text-muted);">Ir al formulario de
-                                        proveedores</span>
-                                </div>
-                            </button>
-
-                            <button onclick="switchTab('subreceta')" class="shortcut-btn">
-                                <div class="shortcut-icon"
-                                    style="background-color: hsl(265, 80%, 95%); color: hsl(265, 80%, 48%);">
-                                    <i class="fa-solid fa-utensils"></i>
-                                </div>
-                                <div style="display: flex; flex-direction: column;">
-                                    <span
-                                        style="font-weight: 600; font-size: 13px; color: var(--color-text-main); margin-bottom: 1px;">Ingresar
-                                        Subreceta</span>
-                                    <span style="font-size: 11px; color: var(--color-text-muted);">Ir al formulario de
-                                        subrecetas</span>
-                                </div>
-                            </button>
-
-                            <button onclick="switchTab('solicitud-compra')" class="shortcut-btn">
-                                <div class="shortcut-icon"
-                                    style="background-color: var(--color-warning-light); color: var(--color-warning);">
-                                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                                </div>
-                                <div style="display: flex; flex-direction: column;">
-                                    <span
-                                        style="font-weight: 600; font-size: 13px; color: var(--color-text-main); margin-bottom: 1px;">Solicitud
-                                        de Compra</span>
-                                    <span style="font-size: 11px; color: var(--color-text-muted);">Generar nueva
-                                        orden/solicitud</span>
-                                </div>
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Suppliers View -->
-            <section id="suppliers" class="tab-panel">
-                <div class="layout-grid">
-                    <!-- Left Column: Form Card -->
-                    <div class="grid-card">
-                        <div class="card-header">
-                            <h2><i class="fa-solid fa-truck-ramp-box"></i> Registrar Proveedor</h2>
-                        </div>
-                        <div class="card-body">
-                            <form id="supplier-form" onsubmit="event.preventDefault(); addSupplierSimulated();">
-                                <div class="form-group">
-                                    <label>CÓDIGO DE PROVEEDOR *</label>
-                                    <input type="text" id="sup-code" class="form-control" placeholder="Ej. PROV-001"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label>NOMBRE COMERCIAL *</label>
-                                    <input type="text" id="sup-name" class="form-control"
-                                        placeholder="Ej. Aceros de México" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>RAZÓN SOCIAL *</label>
-                                    <input type="text" id="sup-legal" class="form-control"
-                                        placeholder="Ej. Aceros del Norte S.A. de C.V." required>
-                                </div>
-                                <button type="submit" class="btn btn-primary"
-                                    style="width: 100%; justify-content: center; margin-top: 16px;">
-                                    <i class="fa-solid fa-circle-check"></i> Guardar Proveedor
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Registered Suppliers list -->
-                    <div class="grid-card">
-                        <div class="card-header">
-                            <h2><i class="fa-solid fa-table-list"></i> Proveedores Registrados</h2>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Código</th>
-                                            <th>Nombre Comercial</th>
-                                            <th>Razón Social</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="suppliers-table-body">
-                                        <tr>
-                                            <td><code>PROV-001</code></td>
-                                            <td><strong>Suministros Industriales</strong></td>
-                                            <td>Suministros del Norte S.A. de C.V.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>PROV-002</code></td>
-                                            <td><strong>Aceros de México</strong></td>
-                                            <td>Aceros Nacionales S.A. de C.V.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {% include 'modulos/forms_proveedores.html' %}
 
             <!-- Products View (Esqueleto) -->
             <section id="products" class="tab-panel">
@@ -392,6 +209,8 @@
 
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Módulos JS -->
+    <script src="{{ url_for('static', filename='js/modulos/forms_proveedores.js') }}"></script>
 </body>
 
 </html>

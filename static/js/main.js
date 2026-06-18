@@ -1,17 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
-    
-    // Establecer el título inicial del encabezado a partir del elemento activo
-    const activeMenu = document.querySelector('.menu-item.active');
-    if (activeMenu) {
-        const titleEl = document.getElementById('current-tab-title');
-        const textEl = activeMenu.querySelector('.menu-text');
-        if (titleEl && textEl) {
-            titleEl.textContent = textEl.textContent;
-        }
-    }
 
-    // Alternancia de la barra lateral (Collapse/Expand) al hacer clic en el logo
+    // --- NUEVO: Lógica de carga inicial ---
+    // Si la URL tiene un hash (ej: index.html#suppliers), carga esa.
+    // Si no, carga 'suppliers' por defecto.
+    const initialTab = window.location.hash ? window.location.hash.substring(1) : 'suppliers';
+    switchTab(initialTab);
+    // --------------------------------------
+
+    // Alternancia de la barra lateral
     const brandInfo = document.querySelector('.brand-info');
     const sidebar = document.querySelector('.sidebar');
     if (brandInfo && sidebar) {
@@ -19,7 +16,35 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar.classList.toggle('expanded');
         });
     }
+
+    // Inicializar reloj
+    updateDashboardDateTime();
+    setInterval(updateDashboardDateTime, 1000);
 });
+
+// --- DYNAMIC CLOCK FOR DASHBOARD ---
+function updateDashboardDateTime() {
+    const dateTextEl = document.getElementById('db-date-text');
+    if (!dateTextEl) return;
+
+    const now = new Date();
+    const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    };
+
+    let dateString = now.toLocaleDateString('es-ES', options);
+    // Capitalizar primera letra
+    dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+
+    dateTextEl.textContent = dateString;
+}
 
 // --- UTILERÍA DE ALERTAS ---
 function showAlert(message, type = 'success') {
@@ -32,7 +57,7 @@ function showAlert(message, type = 'success') {
         <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
     `;
     container.appendChild(alert);
-    
+
     // Auto-eliminar después de 4 segundos
     setTimeout(() => {
         alert.remove();
@@ -106,42 +131,6 @@ function initTabs() {
             switchTab(targetTab);
         });
     });
-}
-
-
-// --- SIMULACIÓN DE REGISTRO DE PROVEEDOR ---
-function addSupplierSimulated() {
-    const codeInput = document.getElementById('sup-code');
-    const nameInput = document.getElementById('sup-name');
-    const legalInput = document.getElementById('sup-legal');
-
-    if (!codeInput || !nameInput || !legalInput) return;
-
-    const code = codeInput.value.trim();
-    const name = nameInput.value.trim();
-    const legal = legalInput.value.trim();
-
-    if (!code || !name || !legal) {
-        showAlert('Por favor, rellene todos los campos requeridos.', 'danger');
-        return;
-    }
-
-    const tbody = document.getElementById('suppliers-table-body');
-    if (tbody) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><code>${code}</code></td>
-            <td><strong>${name}</strong></td>
-            <td>${legal}</td>
-        `;
-        // Insertar al inicio de la tabla
-        tbody.insertBefore(tr, tbody.firstChild);
-        
-        showAlert('Proveedor registrado con éxito');
-        
-        // Limpiar formulario
-        document.getElementById('supplier-form').reset();
-    }
 }
 
 

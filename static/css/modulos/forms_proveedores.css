@@ -1,0 +1,520 @@
+/* --- ESTILOS INDEPENDIENTES DEL MÓDULO DE PROVEEDORES (WIZARD) --- */
+
+/* Contenedor General del Asistente */
+.supplier-wizard-card {
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    width: 100%;
+}
+
+.supplier-wizard-card .wizard-card-body {
+    padding: 32px;
+}
+
+@media (max-width: 768px) {
+    .supplier-wizard-card .wizard-card-body {
+        padding: 20px;
+    }
+}
+
+/* Cabecera del Wizard (Paso a Paso) */
+.wizard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    background-color: hsl(215, 30%, 98.5%);
+    border-bottom: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+    .wizard-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 16px 20px;
+    }
+}
+
+.wizard-step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.indicator-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid var(--color-border);
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.indicator-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    transition: var(--transition);
+}
+
+/* Estados de los Indicadores */
+.wizard-step-indicator.active .indicator-number {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.wizard-step-indicator.active .indicator-label {
+    color: var(--color-text-main);
+    font-weight: 700;
+}
+
+.wizard-step-indicator.completed .indicator-number {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    color: white;
+}
+
+.wizard-step-indicator.completed .indicator-label {
+    color: var(--color-success);
+}
+
+/* Barras de Progreso Intermedias */
+.wizard-progress-bar {
+    flex-grow: 1;
+    height: 2px;
+    background-color: var(--color-border);
+    margin: 0 20px;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .wizard-progress-bar {
+        display: none;
+        /* Se ocultan en móvil para apilar verticalmente */
+    }
+}
+
+.progress-fill,
+.progress-fill-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.progress-fill.completed,
+.progress-fill-2.completed {
+    background-color: var(--color-success);
+    width: 100%;
+}
+
+.progress-fill.active,
+.progress-fill-2.active {
+    width: 100%;
+}
+
+/* --- SECCIONES DE FORMULARIO DENTRO DE LOS PASOS --- */
+.supplier-form-section {
+    margin-bottom: 30px;
+    padding-bottom: 8px;
+}
+
+.supplier-form-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.supplier-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-sidebar-active-bg);
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.supplier-section-title i {
+    font-size: 14px;
+    color: var(--color-primary);
+}
+
+/* Grilla de Formulario (Dos columnas en Paso 1) */
+.supplier-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 24px;
+}
+
+.supplier-form-grid .full-width {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .supplier-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .supplier-form-grid .full-width {
+        grid-column: span 1;
+    }
+}
+
+/* Contenedores de botones de navegación */
+.wizard-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Contenedores de Contenido de los Pasos (Wizard Steps) */
+.wizard-step-content {
+    display: none;
+}
+
+.wizard-step-content.active {
+    display: block;
+    animation: wizardFadeIn 0.35s ease-out;
+}
+
+@keyframes wizardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- PASO 2: GRILLA DE ARCHIVOS / DOCUMENTOS --- */
+.document-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.upload-card {
+    background-color: white;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.upload-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.upload-card.has-file {
+    border-style: solid;
+    border-color: var(--color-success);
+    background-color: hsl(155, 75%, 99%);
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+    transition: var(--transition);
+}
+
+.upload-card.has-file .upload-icon {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.upload-info {
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.doc-title {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 6px;
+}
+
+.doc-format {
+    display: inline-block;
+    font-size: 10.5px;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-app);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+}
+
+.file-input-hidden {
+    display: none !important;
+}
+
+.upload-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+    font-size: 12.5px;
+}
+
+.selected-file-name {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+    word-break: break-all;
+    max-width: 100%;
+    padding: 6px 12px;
+    background-color: var(--color-bg-app);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.selected-file-name.active-file {
+    color: var(--color-success);
+    background-color: var(--color-success-light);
+    border-color: hsl(155, 75%, 90%);
+    font-weight: 600;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: var(--color-danger);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-file-btn:hover {
+    color: var(--color-danger-hover);
+}
+
+/* --- PASO 3: FICHA DE LECTURA RÁPIDA (CONSOLIDADO) --- */
+.preview-consolidated-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.preview-group {
+    background-color: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.preview-group.full-width {
+    grid-column: span 2;
+}
+
+@media (max-width: 992px) {
+    .preview-consolidated-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-group.full-width {
+        grid-column: span 1;
+    }
+}
+
+.preview-group-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-sidebar-active-bg);
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.preview-consolidated-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.preview-consolidated-table td {
+    padding: 8px 0;
+    font-size: 13.5px;
+    border-bottom: 1px solid hsl(215, 20%, 96.5%);
+    vertical-align: top;
+}
+
+.preview-consolidated-table tr:last-child td {
+    border-bottom: none;
+}
+
+.preview-consolidated-table td:first-child {
+    font-weight: 600;
+    color: var(--color-text-muted);
+    width: 42%;
+    padding-right: 12px;
+}
+
+.preview-consolidated-table td:last-child {
+    color: var(--color-text-main);
+    font-weight: 500;
+}
+
+.preview-consolidated-table td.text-multiline {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.45;
+}
+
+.preview-consolidated-table code {
+    font-family: monospace;
+    font-size: 13px;
+    padding: 2px 6px;
+    background: #f1f5f9;
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.preview-consolidated-table strong {
+    color: var(--color-text-main);
+    font-weight: 700;
+}
+
+/* Listado de Archivos en Ficha de Resumen */
+.preview-files-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .preview-files-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.file-resumen-item {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 16px;
+    background-color: var(--color-bg-app);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.file-resumen-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.file-resumen-val {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    font-style: italic;
+    word-break: break-all;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-resumen-val.has-file {
+    color: var(--color-success);
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* Switches */
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.switch-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.switch-container label {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--color-text-main);
+}
+
+.wizard-buttons-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Validación de Campos Obligatorios */
+.form-control.is-invalid {
+    border-color: var(--color-danger) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.upload-card.is-invalid {
+    border-color: var(--color-danger) !important;
+    background-color: var(--color-danger-light) !important;
+}
