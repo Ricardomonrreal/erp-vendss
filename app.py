@@ -1,6 +1,18 @@
-from flask import Flask, render_template, jsonify
+import os
+from flask import Flask, render_template, jsonify, send_from_directory
+from jinja2 import ChoiceLoader, FileSystemLoader
 
 app = Flask(__name__)
+
+# Configurar el cargador de templates de Jinja para buscar en 'templates' y en la raíz '.'
+app.jinja_loader = ChoiceLoader([
+    FileSystemLoader('templates'),
+    FileSystemLoader('.')
+])
+
+@app.route('/components/<path:path>')
+def send_components(path):
+    return send_from_directory('components', path)
 
 # --- VISTAS TEMPLATE ---
 @app.route('/')

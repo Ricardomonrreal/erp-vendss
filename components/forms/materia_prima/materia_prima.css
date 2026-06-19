@@ -1,0 +1,16 @@
+/* Estilos específicos para el módulo de Materia Prima */
+
+#mp-density-group {
+    animation: slideDownFade 0.3s ease-out;
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

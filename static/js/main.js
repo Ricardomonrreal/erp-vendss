@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
+    initDarkMode();
 
     // --- NUEVO: Lógica de carga inicial ---
     // Si la URL tiene un hash (ej: index.html#suppliers), carga esa.
@@ -130,6 +131,35 @@ function initTabs() {
             const targetTab = item.getAttribute('data-tab');
             switchTab(targetTab);
         });
+    });
+}
+
+function initDarkMode() {
+    const toggleBtn = document.getElementById('dark-mode-toggle');
+    if (!toggleBtn) return;
+
+    // Cargar preferencia guardada
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        const icon = toggleBtn.querySelector('i');
+        if (icon) {
+            icon.className = 'fa-solid fa-sun';
+        }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        const theme = document.documentElement.getAttribute('data-theme');
+        const icon = toggleBtn.querySelector('i');
+        if (theme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            if (icon) icon.className = 'fa-solid fa-moon';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            if (icon) icon.className = 'fa-solid fa-sun';
+        }
     });
 }
 

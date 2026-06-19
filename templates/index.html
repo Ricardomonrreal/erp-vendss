@@ -15,7 +15,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- Módulos CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/modulos/forms_proveedores.css') }}">
+    <link rel="stylesheet" href="{{ url_for('send_components', path='forms/proveedores/proveedores.css') }}">
+    <link rel="stylesheet" href="{{ url_for('send_components', path='forms/materia_prima/materia_prima.css') }}">
+    <link rel="stylesheet" href="{{ url_for('send_components', path='forms/solicitud_compra/solicitud_compra.css') }}">
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 </head>
@@ -39,6 +41,10 @@
                 <a href="#suppliers" class="menu-item active" data-tab="suppliers" data-tooltip="Proveedores">
                     <i class="fa-solid fa-truck-field"></i>
                     <span class="menu-text">Proveedores</span>
+                </a>
+                <a href="#materia-prima" class="menu-item" data-tab="materia-prima" data-tooltip="Materias Primas">
+                    <i class="fa-solid fa-cube"></i>
+                    <span class="menu-text">Materia Prima</span>
                 </a>
                 <a href="#products" class="menu-item" data-tab="products" data-tooltip="Inventario">
                     <i>•</i>
@@ -71,7 +77,10 @@
                     <h1 id="current-tab-title">Inicio</h1>
                 </div>
                 <div class="topbar-actions" id="topbar-actions-container">
-                    <!-- Acciones globales del header -->
+                    <!-- Dark Mode Toggle Button -->
+                    <button id="dark-mode-toggle" class="dark-mode-btn" title="Cambiar tema">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
                 </div>
             </header>
 
@@ -82,7 +91,7 @@
 
 
             <!-- Suppliers View -->
-            {% include 'modulos/forms_proveedores.html' %}
+            {% include 'components/forms/proveedores/proveedores.html' %}
 
             <!-- Products View (Esqueleto) -->
             <section id="products" class="tab-panel">
@@ -140,26 +149,7 @@
             </section>
 
             <!-- Materia Prima View Placeholder -->
-            <section id="materia-prima" class="tab-panel">
-                <div class="panel-skeleton">
-                    <div class="skeleton-header">
-                        <h2>Módulo: Materias Primas</h2>
-                        <p>Sección para el ingreso y administración de materias primas.</p>
-                    </div>
-                    <div class="skeleton-body">
-                        <div
-                            style="border: 2px dashed var(--color-border); border-radius: var(--radius-lg); padding: 48px; text-align: center; color: var(--color-text-muted); background-color: var(--color-bg-card);">
-                            <i class="fa-solid fa-wheat-awn"
-                                style="font-size: 48px; margin-bottom: 16px; color: var(--color-text-muted);"></i>
-                            <p style="font-weight: 600; margin-bottom: 8px; color: var(--color-text-main);">[Placeholder
-                                de Formulario: Materia Prima]</p>
-                            <p style="font-size: 13px; max-width: 450px; margin: 0 auto;">Este panel es un placeholder
-                                para el módulo de ingreso de una nueva materia prima. El redireccionamiento se ha
-                                realizado con éxito.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {% include 'components/forms/materia_prima/materia_prima.html' %}
 
             <!-- Subreceta View Placeholder -->
             <section id="subreceta" class="tab-panel">
@@ -184,33 +174,16 @@
             </section>
 
             <!-- Solicitud de Compra View Placeholder -->
-            <section id="solicitud-compra" class="tab-panel">
-                <div class="panel-skeleton">
-                    <div class="skeleton-header">
-                        <h2>Módulo: Solicitud de Compra</h2>
-                        <p>Sección para la generación de solicitudes de compra.</p>
-                    </div>
-                    <div class="skeleton-body">
-                        <div
-                            style="border: 2px dashed var(--color-border); border-radius: var(--radius-lg); padding: 48px; text-align: center; color: var(--color-text-muted); background-color: var(--color-bg-card);">
-                            <i class="fa-solid fa-file-invoice-dollar"
-                                style="font-size: 48px; margin-bottom: 16px; color: var(--color-text-muted);"></i>
-                            <p style="font-weight: 600; margin-bottom: 8px; color: var(--color-text-main);">[Placeholder
-                                de Formulario: Solicitud de Compra]</p>
-                            <p style="font-size: 13px; max-width: 450px; margin: 0 auto;">Este panel es un placeholder
-                                para el módulo de generación de una solicitud de compra. El redireccionamiento se ha
-                                realizado con éxito.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {% include 'components/forms/solicitud_compra/solicitud_compra.html' %}
         </main>
     </div>
 
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <!-- Módulos JS -->
-    <script src="{{ url_for('static', filename='js/modulos/forms_proveedores.js') }}"></script>
+    <script src="{{ url_for('send_components', path='forms/proveedores/proveedores.js') }}"></script>
+    <script src="{{ url_for('send_components', path='forms/materia_prima/materia_prima.js') }}"></script>
+    <script src="{{ url_for('send_components', path='forms/solicitud_compra/solicitud_compra.js') }}"></script>
 </body>
 
 </html>

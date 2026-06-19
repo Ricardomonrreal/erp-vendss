@@ -84,12 +84,14 @@ body {
 /* Contenedor Base */
 .app-container {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* --- BARRA LATERAL (Sidebar colapsable, Estilo Screenshot) --- */
 .sidebar {
     width: 80px;
+    height: 100vh;
     background-color: var(--color-sidebar);
     border-right: 1px solid var(--color-sidebar-border);
     display: flex;
@@ -296,9 +298,11 @@ body {
 /* --- CONTENIDO PRINCIPAL --- */
 .main-content {
     flex-grow: 1;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     min-width: 0;
+    overflow: hidden;
 }
 
 /* Barra Superior (Topbar) */
@@ -308,7 +312,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 32px;
+    padding: 12px 32px;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -389,6 +393,8 @@ body {
     display: none;
     padding: 32px;
     animation: fadeIn 0.15s ease-in-out;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .tab-panel.active {
@@ -1385,4 +1391,90 @@ textarea.form-control {
     .shortcuts-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* --- MODO OSCURO --- */
+[data-theme="dark"] {
+    --color-bg-app: hsl(220, 30%, 8%);
+    --color-bg-card: hsl(220, 25%, 12%);
+    --color-sidebar: hsl(220, 25%, 12%);
+    --color-sidebar-border: hsl(220, 20%, 16%);
+    --color-sidebar-item: hsl(220, 15%, 65%);
+    --color-sidebar-active-bg: hsl(215, 80%, 48%);
+    --color-sidebar-active-icon: hsl(0, 0%, 100%);
+    --color-primary: hsl(215, 85%, 55%);
+    --color-primary-hover: hsl(215, 85%, 65%);
+    --color-primary-light: hsl(220, 25%, 18%);
+    --color-secondary: hsl(220, 15%, 65%);
+    --color-secondary-hover: hsl(220, 15%, 75%);
+    --color-secondary-light: hsl(220, 20%, 18%);
+    --color-text-main: hsl(215, 20%, 93%);
+    --color-text-secondary: hsl(215, 85%, 65%);
+    --color-text-muted: hsl(220, 15%, 65%);
+    --color-border: hsl(220, 20%, 18%);
+    --color-border-hover: hsl(220, 20%, 26%);
+    
+    /* Inversión suave para algunos elementos no vectorizados */
+    color-scheme: dark;
+}
+
+[data-theme="dark"] input.form-control,
+[data-theme="dark"] select.form-control,
+[data-theme="dark"] textarea.form-control {
+    background-color: hsl(220, 25%, 10%);
+    color: var(--color-text-main);
+    border-color: var(--color-border);
+}
+
+[data-theme="dark"] .table th {
+    background-color: hsl(220, 25%, 10%);
+}
+
+[data-theme="dark"] .table tbody tr:hover {
+    background-color: hsl(220, 25%, 10%);
+}
+
+[data-theme="dark"] .wizard-header {
+    background-color: hsl(220, 25%, 10%);
+}
+
+[data-theme="dark"] .indicator-number {
+    background-color: hsl(220, 25%, 10%);
+}
+
+[data-theme="dark"] .upload-card {
+    background-color: hsl(220, 25%, 10%);
+}
+
+[data-theme="dark"] .preview-group {
+    background-color: hsl(220, 25%, 10%);
+}
+
+[data-theme="dark"] .file-resumen-item {
+    background-color: hsl(220, 25%, 8%);
+}
+
+[data-theme="dark"] .preview-consolidated-table td {
+    border-bottom: 1px solid hsl(220, 20%, 14%);
+}
+
+/* Botón de Modo Oscuro */
+.dark-mode-btn {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 16px;
+}
+
+.dark-mode-btn:hover {
+    background-color: var(--color-bg-app);
+    border-color: var(--color-primary);
 }
