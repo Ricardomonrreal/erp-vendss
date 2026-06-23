@@ -1,19 +1,19 @@
 <!-- Materia Prima View -->
 <section id="materia-prima" class="tab-panel">
     <div class="supplier-wizard-card">
-
-        <!-- Botones de navegación superior (Se activan/desactivan según el paso) -->
-        <div class="wizard-step-top-nav" id="mp-top-nav-step-1">
+        <div class="wizard-step-top-nav" id="mp-top-nav-step-2" style="display: none;">
             <div class="wizard-buttons-top">
-                <span></span><!-- Alineación derecha -->
-                <button type="button" class="btn btn-primary" onclick="goToMpStep(2)">
+                <button type="button" class="btn btn-secondary" onclick="goToMpStep(1)">
+                    <i class="fa-solid fa-arrow-left"></i> Atrás (Tipo de Material)
+                </button>
+                <button type="button" class="btn btn-primary" onclick="goToMpStep(3)">
                     Siguiente Paso (Resumen) <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
         </div>
-        <div class="wizard-step-top-nav" id="mp-top-nav-step-2" style="display: none;">
+        <div class="wizard-step-top-nav" id="mp-top-nav-step-3" style="display: none;">
             <div class="wizard-buttons-top">
-                <button type="button" class="btn btn-secondary" onclick="goToMpStep(1)">
+                <button type="button" class="btn btn-secondary" onclick="goToMpStep(2)">
                     <i class="fa-solid fa-arrow-left"></i> Atrás (Datos Generales)
                 </button>
                 <button type="submit" class="btn btn-success" form="mp-form">
@@ -26,13 +26,20 @@
         <div class="wizard-header">
             <div class="wizard-step-indicator active" id="mp-indicator-1">
                 <div class="indicator-number">1</div>
-                <div class="indicator-label">Datos Generales</div>
+                <div class="indicator-label">Tipo de Materia Prima</div>
             </div>
             <div class="wizard-progress-bar">
                 <div class="progress-fill" id="mp-progress-fill"></div>
             </div>
             <div class="wizard-step-indicator" id="mp-indicator-2">
                 <div class="indicator-number">2</div>
+                <div class="indicator-label">Datos Generales</div>
+            </div>
+            <div class="wizard-progress-bar">
+                <div class="progress-fill-2" id="mp-progress-fill-2"></div>
+            </div>
+            <div class="wizard-step-indicator" id="mp-indicator-3">
+                <div class="indicator-number">3</div>
                 <div class="indicator-label">Ficha de Resumen</div>
             </div>
         </div>
@@ -41,10 +48,64 @@
         <div class="wizard-card-body">
             <form id="mp-form" onsubmit="event.preventDefault(); addMpSimulated();">
 
-                <!-- PASO 1: DATOS GENERALES -->
+                <!-- PASO 1: SELECCIONAR TIPO DE MATERIA PRIMA -->
                 <div class="wizard-step-content active" id="mp-step-1">
+                    <div class="mp-type-container">
+                        <p class="mp-type-info-text">Seleccione el tipo de materia prima que desea registrar en el
+                            sistema:</p>
 
-                    <!-- Sección 1: Identificación e Información Básica -->
+                        <div class="mp-type-grid">
+                            <div class="mp-type-card" onclick="selectMpType('Líquido', this)">
+                                <i class="fa-solid fa-droplet"></i>
+                                <span class="mp-type-card-label">Materia prima líquida</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Polvo', this)">
+                                <i class="fa-solid fa-burst"></i>
+                                <span class="mp-type-card-label">Materia prima en polvo</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Esencia', this)">
+                                <i class="fa-solid fa-wind"></i>
+                                <span class="mp-type-card-label">Esencia</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Colorante', this)">
+                                <i class="fa-solid fa-palette"></i>
+                                <span class="mp-type-card-label">Colorante en polvo</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Subreceta', this)">
+                                <i class="fa-solid fa-receipt"></i>
+                                <span class="mp-type-card-label">Subreceta</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Envase', this)">
+                                <i class="fa-solid fa-jug-detergent"></i>
+                                <span class="mp-type-card-label">Envase</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Tapa', this)">
+                                <i class="fa-solid fa-ring"></i>
+                                <span class="mp-type-card-label">Tapa</span>
+                            </div>
+                            <div class="mp-type-card" onclick="selectMpType('Etiqueta', this)">
+                                <i class="fa-solid fa-tag"></i>
+                                <span class="mp-type-card-label">Etiqueta</span>
+                            </div>
+                        </div>
+
+                        <!-- Input oculto para el valor del tipo seleccionado -->
+                        <input type="hidden" id="mp-type" required>
+                    </div>
+
+                    <!-- Botones de navegación Paso 1 -->
+                    <div class="wizard-buttons">
+                        <span></span><!-- Alineación derecha -->
+                        <button type="button" class="btn btn-primary" onclick="goToMpStep(2)">
+                            Siguiente Paso (Datos Generales) <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PASO 2: DATOS GENERALES -->
+                <div class="wizard-step-content" id="mp-step-2" style="display: none;">
+
+                    <!-- Sección: Identificación (siempre visible) -->
                     <div class="supplier-form-section">
                         <div class="supplier-section-title">
                             <i class="fa-solid fa-barcode"></i> Identificación e Información Básica
@@ -52,35 +113,33 @@
                         <div class="supplier-form-grid">
                             <div class="form-group">
                                 <label>CÓDIGO DE MATERIA PRIMA *</label>
-                                <input type="text" id="mp-code" class="form-control" placeholder="Ej. MP-CHEM-001"
-                                    required>
+                                <input type="text" id="mp-code" class="form-control"
+                                    placeholder="Se genera automáticamente" readonly>
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE INTERNO *</label>
                                 <input type="text" id="mp-name" class="form-control"
-                                    placeholder="Ej. Ácido Sulfónico 90%" required>
+                                    placeholder="Ej. Ácido Sulfónico 90%">
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE COMERCIAL DEL PROVEEDOR</label>
-                                <input type="text" id="mp-prov-name" class="form-control" placeholder="Ej. Texapon N70">
+                                <input type="text" id="mp-prov-name" class="form-control"
+                                    placeholder="Ej. Texapon N70">
                             </div>
                             <div class="form-group">
-                                <label>TIPO DE MATERIAL *</label>
-                                <select id="mp-type" class="form-control" required>
+                                <label>ESTATUS *</label>
+                                <select id="mp-status" class="form-control">
                                     <option value="">-- Seleccionar --</option>
-                                    <option value="Líquido">Líquido</option>
-                                    <option value="Polvo">Polvo</option>
-                                    <option value="Esencia">Esencia</option>
-                                    <option value="Colorante">Colorante</option>
-                                    <option value="Subreceta">Subreceta</option>
-                                    <option value="Envase">Envase</option>
-                                    <option value="Tapa">Tapa</option>
-                                    <option value="Etiqueta">Etiqueta</option>
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                    <option value="En evaluación">En evaluación</option>
+                                    <option value="Obsoleto">Obsoleto</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <!-- Condicional: Familia Química (tipos químicos) -->
+                            <div class="form-group cond-field cond-quimica">
                                 <label>FAMILIA QUÍMICA *</label>
-                                <select id="mp-family" class="form-control" required>
+                                <select id="mp-family" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="TEN">Tensoactivos</option>
                                     <option value="BASQ">Bases / Alcalinos</option>
@@ -92,9 +151,10 @@
                                     <option value="ENV">Envases / Empaque</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <!-- Condicional: Estado Físico (tipos químicos) -->
+                            <div class="form-group cond-field cond-quimica">
                                 <label>ESTADO FÍSICO *</label>
-                                <select id="mp-state" class="form-control" required>
+                                <select id="mp-state" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="Líquido">Líquido</option>
                                     <option value="Polvo">Polvo</option>
@@ -102,28 +162,18 @@
                                     <option value="Pieza">Pieza</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>ESTATUS *</label>
-                                <select id="mp-status" class="form-control" required>
-                                    <option value="">-- Seleccionar --</option>
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo">Inactivo</option>
-                                    <option value="En evaluación">En evaluación</option>
-                                    <option value="Obsoleto">Obsoleto</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
 
-                    <!-- Sección 2: Unidades y Conversión -->
-                    <div class="supplier-form-section">
+                    <!-- Sección: Unidades y Conversión (solo tipos químicos) -->
+                    <div class="supplier-form-section cond-field cond-quimica">
                         <div class="supplier-section-title">
                             <i class="fa-solid fa-calculator"></i> Unidades y Conversión
                         </div>
                         <div class="supplier-form-grid">
                             <div class="form-group">
                                 <label>UNIDAD DE COMPRA *</label>
-                                <select id="mp-unit-buy" class="form-control" required>
+                                <select id="mp-unit-buy" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="Litro">Litro (L)</option>
                                     <option value="Kilogramo">Kilogramo (Kg)</option>
@@ -134,15 +184,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>UNIDAD BASE DE INVENTARIO *</label>
-                                <select id="mp-unit-inv" class="form-control" required>
+                                <label>UNIDAD BASE ERP *</label>
+                                <select id="mp-unit-inv" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="Gramo">A revisar</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>UNIDAD DE RECETA *</label>
-                                <select id="mp-unit-recipe" class="form-control" required>
+                                <select id="mp-unit-recipe" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="Gramo">Gramo (g)</option>
                                     <option value="Kilogramo">Kilogramo (kg)</option>
@@ -154,17 +204,114 @@
                             <div class="form-group">
                                 <label>FACTOR DE CONVERSIÓN *</label>
                                 <input type="number" id="mp-conv-factor" class="form-control"
-                                    placeholder="Ej. 1000 (De compra a base)" step="0.0001" min="0" required>
+                                    placeholder="Ej. 1000 (De compra a base)" step="0.0001" min="0">
                             </div>
                             <div class="form-group full-width">
                                 <label>PRESENTACIÓN ESTÁNDAR *</label>
                                 <input type="text" id="mp-presentation" class="form-control"
-                                    placeholder="Ej. Tambor plástico de 200L, Saco de papel de 25kg" required>
+                                    placeholder="Ej. Tambor plástico de 200L, Saco de papel de 25kg">
+                            </div>
+                            <!-- Densidad: solo si el tipo es Líquido -->
+                            <div class="form-group cond-field cond-liquido" id="mp-density-group">
+                                <label>DENSIDAD (g/ml) *</label>
+                                <input type="number" id="mp-density" class="form-control"
+                                    placeholder="Ej. 1.05" step="0.001" min="0">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>COMPATIBILIDAD QUÍMICA</label>
+                                <input type="text" id="mp-compat" class="form-control"
+                                    placeholder="Ej. No mezclar con oxidantes fuertes">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Sección 3: Proveedores y Logística -->
+                    <!-- Sección condicional: Tapa -->
+                    <div class="supplier-form-section cond-field cond-tapa">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-ring"></i> Especificaciones de Tapa
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>TAMAÑO COMPATIBLE *</label>
+                                <select id="mp-tapa-size" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="1L">1L</option>
+                                    <option value="5L">5L</option>
+                                    <option value="20L">20L</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>TIPO DE TAPA *</label>
+                                <input type="text" id="mp-tapa-type" class="form-control"
+                                    placeholder="Ej. Rosca, Presión, Snap-on">
+                            </div>
+                            <div class="form-group">
+                                <label>ENVASE RELACIONADO *</label>
+                                <input type="text" id="mp-tapa-envase" class="form-control"
+                                    placeholder="Ej. Botella 1L HDPE">
+                            </div>
+                            <div class="form-group">
+                                <label>UNIDAD BASE</label>
+                                <input type="text" id="mp-tapa-unit" class="form-control" value="Pieza" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección condicional: Etiqueta -->
+                    <div class="supplier-form-section cond-field cond-etiqueta">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-tag"></i> Especificaciones de Etiqueta
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>PRODUCTO RELACIONADO *</label>
+                                <input type="text" id="mp-etiq-product" class="form-control"
+                                    placeholder="Ej. Limpiador multiusos">
+                            </div>
+                            <div class="form-group">
+                                <label>PRESENTACIÓN *</label>
+                                <select id="mp-etiq-presentation" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="1L">1L</option>
+                                    <option value="5L">5L</option>
+                                    <option value="20L">20L</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>UNIDAD BASE</label>
+                                <input type="text" id="mp-etiq-unit" class="form-control" value="Pieza" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección condicional: Envase -->
+                    <div class="supplier-form-section cond-field cond-envase">
+                        <div class="supplier-section-title">
+                            <i class="fa-solid fa-jug-detergent"></i> Especificaciones de Envase
+                        </div>
+                        <div class="supplier-form-grid">
+                            <div class="form-group">
+                                <label>CAPACIDAD *</label>
+                                <select id="mp-envase-capacity" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="1L">1L</option>
+                                    <option value="5L">5L</option>
+                                    <option value="20L">20L</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>MATERIAL DEL ENVASE *</label>
+                                <input type="text" id="mp-envase-material" class="form-control"
+                                    placeholder="Ej. HDPE, PET, PP">
+                            </div>
+                            <div class="form-group">
+                                <label>UNIDAD BASE</label>
+                                <input type="text" id="mp-envase-unit" class="form-control" value="Pieza" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proveedores y Logística (siempre visible) -->
                     <div class="supplier-form-section">
                         <div class="supplier-section-title">
                             <i class="fa-solid fa-truck"></i> Proveedores y Logística
@@ -173,16 +320,17 @@
                             <div class="form-group">
                                 <label>PROVEEDOR PRINCIPAL *</label>
                                 <input type="text" id="mp-main-provider" class="form-control"
-                                    placeholder="Nombre de proveedor principal" required>
+                                    placeholder="Nombre de proveedor principal">
                             </div>
                             <div class="form-group">
                                 <label>LEAD TIME PROVEEDOR (DÍAS) *</label>
-                                <input type="number" id="mp-lead-time" class="form-control" placeholder="Ej. 5" min="0"
-                                    required>
+                                <input type="number" id="mp-lead-time" class="form-control" placeholder="Ej. 5"
+                                    min="0">
                             </div>
-                            <div class="form-group">
+                            <!-- Ubicación: solo tipos químicos -->
+                            <div class="form-group cond-field cond-quimica">
                                 <label>UBICACIÓN SUGERIDA EN ALMACÉN *</label>
-                                <select id="mp-location" class="form-control" required>
+                                <select id="mp-location" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="REC">Recepción</option>
                                     <option value="BAS">Báscula / Pesaje</option>
@@ -201,7 +349,7 @@
                         </div>
                     </div>
 
-                    <!-- Sección 4: Parámetros de Inventario / Stock -->
+                    <!-- Parámetros de Inventario / Stock (siempre visible) -->
                     <div class="supplier-form-section">
                         <div class="supplier-section-title">
                             <i class="fa-solid fa-boxes-stacked"></i> Parámetros de Inventario / Stock
@@ -215,15 +363,15 @@
                         </div>
                     </div>
 
-                    <!-- Sección 5: Requerimientos, Seguridad y EPP -->
-                    <div class="supplier-form-section">
+                    <!-- Calidad, Seguridad y EPP (solo tipos químicos) -->
+                    <div class="supplier-form-section cond-field cond-quimica">
                         <div class="supplier-section-title">
                             <i class="fa-solid fa-shield-halved"></i> Calidad, Seguridad y EPP
                         </div>
                         <div class="supplier-form-grid">
                             <div class="form-group">
                                 <label>RIESGO PRINCIPAL *</label>
-                                <select id="mp-risk" class="form-control" required>
+                                <select id="mp-risk" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                     <option value="Ninguno">Ninguno</option>
                                     <option value="Inflamable">Inflamable</option>
@@ -242,11 +390,13 @@
                                 <label>REQUIERE CONTROL DE LOTE *</label>
                                 <div style="display: flex; gap: 24px; margin-top: 8px; align-items: center;">
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-lot" value="Sí" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-lot" value="Sí"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>Sí</span>
                                     </label>
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-lot" value="No" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-lot" value="No"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>No</span>
                                     </label>
                                 </div>
@@ -255,11 +405,13 @@
                                 <label>REQUIERE CONTROL DE CADUCIDAD *</label>
                                 <div style="display: flex; gap: 24px; margin-top: 8px; align-items: center;">
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-expiry" value="Sí" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-expiry" value="Sí"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>Sí</span>
                                     </label>
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-expiry" value="No" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-expiry" value="No"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>No</span>
                                     </label>
                                 </div>
@@ -268,11 +420,13 @@
                                 <label>REQUIERE HOJA DE SEGURIDAD (SDS) *</label>
                                 <div style="display: flex; gap: 24px; margin-top: 8px; align-items: center;">
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-sds" value="Sí" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-sds" value="Sí"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>Sí</span>
                                     </label>
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-sds" value="No" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-sds" value="No"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>No</span>
                                     </label>
                                 </div>
@@ -281,11 +435,13 @@
                                 <label>REQUIERE FICHA TÉCNICA *</label>
                                 <div style="display: flex; gap: 24px; margin-top: 8px; align-items: center;">
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-spec" value="Sí" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-spec" value="Sí"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>Sí</span>
                                     </label>
                                     <label class="switch-container" style="margin-top: 0; cursor: pointer;">
-                                        <input type="checkbox" name="mp-req-spec" value="No" onchange="handleMpExclusiveCheckbox(this)">
+                                        <input type="checkbox" name="mp-req-spec" value="No"
+                                            onchange="handleMpExclusiveCheckbox(this)">
                                         <span>No</span>
                                     </label>
                                 </div>
@@ -293,17 +449,19 @@
                         </div>
                     </div>
 
-                    <!-- Botones de navegación Paso 1 -->
+                    <!-- Botones de navegación Paso 2 -->
                     <div class="wizard-buttons">
-                        <span></span><!-- Alineación derecha -->
-                        <button type="button" class="btn btn-primary" onclick="goToMpStep(2)">
+                        <button type="button" class="btn btn-secondary" onclick="goToMpStep(1)">
+                            <i class="fa-solid fa-arrow-left"></i> Atrás (Tipo de Material)
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="goToMpStep(3)">
                             Siguiente Paso (Resumen) <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- PASO 2: VISTA PREVIA Y CONFIRMACIÓN -->
-                <div class="wizard-step-content" id="mp-step-2" style="display: none;">
+                <!-- PASO 3: VISTA PREVIA Y CONFIRMACIÓN -->
+                <div class="wizard-step-content" id="mp-step-3" style="display: none;">
 
                     <div class="supplier-form-section">
                         <div class="supplier-section-title">
@@ -314,7 +472,7 @@
 
                         <div class="preview-consolidated-layout">
 
-                            <!-- Grupo 1: Datos Básicos -->
+                            <!-- Grupo: Datos Básicos (siempre visible) -->
                             <div class="preview-group">
                                 <div class="preview-group-title">Identificación y Básicos</div>
                                 <table class="preview-consolidated-table">
@@ -335,6 +493,17 @@
                                         <td><span id="res-mp-type">-</span></td>
                                     </tr>
                                     <tr>
+                                        <td>Estatus</td>
+                                        <td><span id="res-mp-status">-</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo: Propiedades Químicas (condicional) -->
+                            <div class="preview-group cond-field cond-quimica">
+                                <div class="preview-group-title">Propiedades Químicas</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
                                         <td>Familia Química</td>
                                         <td><span id="res-mp-family">-</span></td>
                                     </tr>
@@ -342,16 +511,19 @@
                                         <td>Estado Físico</td>
                                         <td><span id="res-mp-state">-</span></td>
                                     </tr>
-
+                                    <tr class="cond-field cond-liquido">
+                                        <td>Densidad (g/ml)</td>
+                                        <td><span id="res-mp-density">-</span></td>
+                                    </tr>
                                     <tr>
-                                        <td>Estatus</td>
-                                        <td><span id="res-mp-status">-</span></td>
+                                        <td>Compatibilidad Química</td>
+                                        <td><span id="res-mp-compat">-</span></td>
                                     </tr>
                                 </table>
                             </div>
 
-                            <!-- Grupo 2: Unidades y Conversión -->
-                            <div class="preview-group">
+                            <!-- Grupo: Unidades (condicional química) -->
+                            <div class="preview-group cond-field cond-quimica">
                                 <div class="preview-group-title">Unidades y Conversiones</div>
                                 <table class="preview-consolidated-table">
                                     <tr>
@@ -359,7 +531,7 @@
                                         <td><span id="res-mp-unit-buy">-</span></td>
                                     </tr>
                                     <tr>
-                                        <td>Unidad de Inventario</td>
+                                        <td>Unidad Base ERP</td>
                                         <td><span id="res-mp-unit-inv">-</span></td>
                                     </tr>
                                     <tr>
@@ -377,7 +549,68 @@
                                 </table>
                             </div>
 
-                            <!-- Grupo 3: Proveedores y Stocks -->
+                            <!-- Grupo: Tapa (condicional) -->
+                            <div class="preview-group cond-field cond-tapa">
+                                <div class="preview-group-title">Especificaciones de Tapa</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Tamaño Compatible</td>
+                                        <td><span id="res-mp-tapa-size">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de Tapa</td>
+                                        <td><span id="res-mp-tapa-type">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Envase Relacionado</td>
+                                        <td><span id="res-mp-tapa-envase">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Unidad Base</td>
+                                        <td><span id="res-mp-tapa-unit">-</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo: Etiqueta (condicional) -->
+                            <div class="preview-group cond-field cond-etiqueta">
+                                <div class="preview-group-title">Especificaciones de Etiqueta</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Producto Relacionado</td>
+                                        <td><span id="res-mp-etiq-product">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Presentación</td>
+                                        <td><span id="res-mp-etiq-presentation">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Unidad Base</td>
+                                        <td><span id="res-mp-etiq-unit">-</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo: Envase (condicional) -->
+                            <div class="preview-group cond-field cond-envase">
+                                <div class="preview-group-title">Especificaciones de Envase</div>
+                                <table class="preview-consolidated-table">
+                                    <tr>
+                                        <td>Capacidad</td>
+                                        <td><span id="res-mp-envase-capacity">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Material del Envase</td>
+                                        <td><span id="res-mp-envase-material">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Unidad Base</td>
+                                        <td><span id="res-mp-envase-unit">-</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Grupo: Logística (siempre visible) -->
                             <div class="preview-group">
                                 <div class="preview-group-title">Logística y Stocks</div>
                                 <table class="preview-consolidated-table">
@@ -389,7 +622,7 @@
                                         <td>Lead time (Días)</td>
                                         <td><span id="res-mp-lead-time">-</span></td>
                                     </tr>
-                                    <tr>
+                                    <tr class="cond-field cond-quimica">
                                         <td>Ubicación en Almacén</td>
                                         <td><span id="res-mp-location">-</span></td>
                                     </tr>
@@ -400,8 +633,8 @@
                                 </table>
                             </div>
 
-                            <!-- Grupo 4: Calidad y Seguridad -->
-                            <div class="preview-group">
+                            <!-- Grupo: Calidad y Seguridad (condicional química) -->
+                            <div class="preview-group cond-field cond-quimica">
                                 <div class="preview-group-title">Calidad y Seguridad</div>
                                 <table class="preview-consolidated-table">
                                     <tr>
@@ -434,9 +667,9 @@
                         </div>
                     </div>
 
-                    <!-- Botones de navegación Paso 2 -->
+                    <!-- Botones de navegación Paso 3 -->
                     <div class="wizard-buttons">
-                        <button type="button" class="btn btn-secondary" onclick="goToMpStep(1)">
+                        <button type="button" class="btn btn-secondary" onclick="goToMpStep(2)">
                             <i class="fa-solid fa-arrow-left"></i> Atrás (Datos Generales)
                         </button>
                         <button type="submit" class="btn btn-success">

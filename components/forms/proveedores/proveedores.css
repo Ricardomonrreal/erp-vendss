@@ -518,3 +518,11 @@
     border-color: var(--color-danger) !important;
     background-color: var(--color-danger-light) !important;
 }
+
+/* Inputs de solo lectura (Autogenerados) */
+.form-control[readonly] {
+    background-color: var(--color-bg-app, hsl(215, 30%, 97%));
+    color: var(--color-text-muted, hsl(215, 15%, 50%));
+    cursor: not-allowed;
+    border-style: dashed;
+}

@@ -11,6 +11,13 @@ let uploadedFiles = {
     'autorizacion': null
 };
 
+function generateProviderCode() {
+    const codeEl = document.getElementById('sup-code');
+    if (codeEl) {
+        codeEl.value = 'PROV-0001';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('sup-code')) {
         initWizard();
@@ -18,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initWizard() {
+    // 0. Generar código de proveedor automáticamente
+    generateProviderCode();
+
     // 1. Mostrar Paso 1 e iniciar indicadores
     goToStep(1);
 
@@ -380,6 +390,9 @@ function addSupplierSimulated() {
     // Resetear formulario HTML
     const form = document.getElementById('supplier-form');
     if (form) form.reset();
+
+    // Regenerar el código autogenerado
+    generateProviderCode();
 
     // Resetear archivos subidos
     const fileKeys = ['sat-constancia', 'sat-opinion', 'domicilio', 'identificacion', 'acta', 'cuenta', 'autorizacion'];
