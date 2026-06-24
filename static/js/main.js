@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- NUEVO: Lógica de carga inicial ---
     // Si la URL tiene un hash (ej: index.html#suppliers), carga esa.
-    // Si no, carga 'suppliers' por defecto.
-    const initialTab = window.location.hash ? window.location.hash.substring(1) : 'suppliers';
+    // Si no, carga 'dashboard' por defecto.
+    const initialTab = window.location.hash ? window.location.hash.substring(1) : 'dashboard';
     switchTab(initialTab);
     // --------------------------------------
 

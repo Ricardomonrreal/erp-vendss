@@ -34,11 +34,11 @@
                 </div>
             </div>
             <nav class="sidebar-menu">
-                <a href="#dashboard" class="menu-item" data-tab="dashboard" data-tooltip="Inicio">
+                <a href="#dashboard" class="menu-item active" data-tab="dashboard" data-tooltip="Inicio">
                     <i class="fa-solid fa-chart-line"></i>
                     <span class="menu-text">Inicio</span>
                 </a>
-                <a href="#suppliers" class="menu-item active" data-tab="suppliers" data-tooltip="Proveedores">
+                <a href="#suppliers" class="menu-item" data-tab="suppliers" data-tooltip="Proveedores">
                     <i class="fa-solid fa-truck-field"></i>
                     <span class="menu-text">Proveedores</span>
                 </a>
@@ -88,7 +88,153 @@
             <div id="alert-container"></div>
 
             <!-- Dashboard View -->
+            <section id="dashboard" class="tab-panel active">
+                <!-- Welcome Section -->
+                <div class="dashboard-header-block">
+                    <h2>Bienvenido, Usuario</h2>
+                    <p>Sistema ERP para NYDS</p>
+                </div>
 
+                <!-- Navigation Cards Grid (3 Columns on desktop, 4th on next line) -->
+                <div class="dashboard-navigation-grid">
+                    <!-- Card 1: Subir materia prima -->
+                    <div class="nav-card" onclick="switchTab('materia-prima')">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon-container">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                        </div>
+                        <h3 class="nav-card-title">Subir materia prima</h3>
+                        <p class="nav-card-desc">Registro y catalogación de nuevas materias primas.</p>
+                        <div class="nav-card-link">
+                            Iniciar proceso <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="nav-card-watermark">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Subir proveedor -->
+                    <div class="nav-card" onclick="switchTab('suppliers')">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon-container">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+                        </div>
+                        <h3 class="nav-card-title">Subir proveedor</h3>
+                        <p class="nav-card-desc">Alta de nuevos socios logísticos y comerciales.</p>
+                        <div class="nav-card-link">
+                            Gestionar proveedores <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="nav-card-watermark">
+                            <i class="fa-solid fa-truck"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Subir subreceta -->
+                    <div class="nav-card" onclick="switchTab('subreceta')">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon-container">
+                                <i class="fa-solid fa-file-lines"></i>
+                            </div>
+                        </div>
+                        <h3 class="nav-card-title">Subir subreceta</h3>
+                        <p class="nav-card-desc">Configuración de fórmulas intermedias y procesos.</p>
+                        <div class="nav-card-link">
+                            Definir procesos <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="nav-card-watermark">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Hacer solicitud de compra -->
+                    <div class="nav-card" onclick="switchTab('solicitud-compra')">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon-container">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                        </div>
+                        <h3 class="nav-card-title">Hacer solicitud de compra</h3>
+                        <p class="nav-card-desc">Generación de órdenes y requerimientos de stock.</p>
+                        <div class="nav-card-link">
+                            Nueva orden <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="nav-card-watermark">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row (Split 2-Column: Actividad Reciente & Resumen de Inventario) -->
+                <div class="dashboard-bottom-row">
+                    <!-- Left: Actividad Reciente -->
+                    <div class="activity-card">
+                        <div class="activity-card-header">
+                            <h3>Actividad Reciente</h3>
+                            <a href="#" class="activity-view-all-link"
+                                onclick="event.preventDefault(); showAlert('Sección en desarrollo', 'info');">Ver
+                                todo</a>
+                        </div>
+                        <div class="activity-list">
+                            <!-- Item 1 -->
+                            <div class="activity-item">
+                                <div class="activity-icon-container success-icon">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <span class="activity-text">Materia prima 'MP-LIQ-GEN-001' registrada</span>
+                                    <span class="activity-time">Hace 2 horas por Admin</span>
+                                </div>
+                                <button class="activity-more-btn"
+                                    onclick="event.stopPropagation(); showAlert('Acción no disponible', 'info');">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="activity-item">
+                                <div class="activity-icon-container info-icon">
+                                    <i class="fa-solid fa-truck"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <span class="activity-text">Nueva solicitud de compra enviada</span>
+                                    <span class="activity-time">Hace 4 horas • ID: #SC-2345</span>
+                                </div>
+                                <button class="activity-more-btn"
+                                    onclick="event.stopPropagation(); showAlert('Acción no disponible', 'info');">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Resumen de Inventario -->
+                    <div class="inventory-summary-card">
+                        <h3 class="inv-card-title">Resumen de Inventario</h3>
+
+                        <div class="inv-stats-row">
+                            <div class="inv-stat-col"> 
+                                <span class="inv-stat-label">Materias Primas Registradas</span>
+                                <span class="inv-stat-value">1,240</span>
+                            </div>
+                            <div class="inv-stat-col">
+                                <span class="inv-stat-label">Proveedores Registrados</span>
+                                <span class="inv-stat-value">42</span>
+                            </div>
+                            <div class="inv-stat-col">
+                                <span class="inv-stat-label">Solicitudes de compra por autorizar</span>
+                                <span class="inv-stat-value">2</span>
+                            </div>
+                        </div>
+
+                        <button class="inv-floating-add-btn" onclick="switchTab('materia-prima')"
+                            title="Registrar Materia Prima">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
 
             <!-- Suppliers View -->
             {% include 'components/forms/proveedores/proveedores.html' %}

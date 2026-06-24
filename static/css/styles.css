@@ -1306,91 +1306,378 @@ textarea.form-control {
 }
 
 /* --- ESTILOS ADICIONALES PARA DASHBOARD --- */
-.dashboard-header h2 {
+.dashboard-header-block {
+    margin-bottom: 32px;
+}
+
+.dashboard-header-block h2 {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 750;
     color: var(--color-text-main);
     margin-bottom: 6px;
     letter-spacing: -0.5px;
 }
 
-.placeholder-alert-box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1.5px dashed var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 12px 16px;
-    background-color: var(--color-bg-app);
-    transition: var(--transition);
+.dashboard-header-block p {
+    font-size: 14.5px;
+    color: var(--color-text-muted);
 }
 
-.placeholder-alert-box:hover {
-    border-color: var(--color-border-hover);
-    background-color: hsl(215, 30%, 98%);
-}
-
-.shortcut-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 8px 12px;
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: var(--transition);
-    text-align: left;
-    gap: 10px;
-    width: 100%;
-}
-
-.shortcut-btn:hover {
-    transform: translateY(-1px);
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-sm);
-    background-color: hsl(215, 80%, 99%);
-}
-
-.shortcut-btn:active {
-    transform: translateY(0);
-}
-
-.shortcut-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    transition: var(--transition);
-    flex-shrink: 0;
-}
-
-.shortcut-btn:hover .shortcut-icon {
-    transform: scale(1.05);
-}
-
-.shortcuts-grid {
+/* Grilla de accesos rápidos */
+.dashboard-navigation-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 33px;
-    margin-top: 6px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
 }
 
 @media (max-width: 992px) {
-    .shortcuts-grid {
+    .dashboard-navigation-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
-    .shortcuts-grid {
+    .dashboard-navigation-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Tarjeta de navegación */
+.nav-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.nav-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+}
+
+.nav-card-icon-container {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    font-size: 16px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.nav-card:hover .nav-card-icon-container {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.nav-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-top: 4px;
+}
+
+.nav-card-desc {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    margin-bottom: 8px;
+    flex-grow: 1;
+    z-index: 2;
+}
+
+.nav-card-link {
+    color: var(--color-primary);
+    font-size: 13.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.nav-card:hover .nav-card-link {
+    color: var(--color-primary-hover);
+}
+
+.nav-card-watermark {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    font-size: 96px;
+    color: var(--color-primary);
+    opacity: 0.09;
+    z-index: 1;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.nav-card:hover .nav-card-watermark {
+    transform: scale(1.08) rotate(-5deg);
+    opacity: 0.4;
+}
+
+/* Fila inferior dividida */
+.dashboard-bottom-row {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 992px) {
+    .dashboard-bottom-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tarjeta de actividad */
+.activity-card {
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.activity-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activity-card-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+.activity-view-all-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.activity-view-all-link:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.activity-item:hover {
+    background-color: var(--color-bg-app);
+}
+
+.activity-icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.activity-icon-container.success-icon {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.activity-icon-container.info-icon {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.activity-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+}
+
+.activity-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.activity-time {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.activity-more-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.activity-more-btn:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-main);
+}
+
+/* Tarjeta de Resumen de Inventario (Fondo Azul Marino Sólido) */
+.inventory-summary-card {
+    background-color: var(--color-sidebar-active-bg);
+    color: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-sidebar-active-bg);
+}
+
+.inv-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+}
+
+.inv-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inv-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.inv-progress-pct {
+    font-weight: 700;
+}
+
+.inv-progress-track {
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.inv-progress-fill {
+    height: 100%;
+    background-color: hsl(195, 100%, 75%);
+    border-radius: var(--radius-sm);
+}
+
+.inv-stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.inv-stats-row .inv-stat-col:nth-child(3) {
+    grid-column: span 2;
+}
+
+.inv-stat-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inv-stat-label {
+    font-size: 12px;
+    opacity: 0.75;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inv-stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+}
+
+.inv-floating-add-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.inv-floating-add-btn:hover {
+    background-color: var(--color-primary-hover);
+    transform: scale(1.05);
+}
+
+.inv-floating-add-btn:active {
+    transform: scale(0.95);
+}
+
+/* Modo oscuro override */
+[data-theme="dark"] .nav-card:hover {
+    background-color: hsl(220, 25%, 15%);
+}
+
+[data-theme="dark"] .activity-item:hover {
+    background-color: hsl(220, 25%, 15%);
+}
+
+[data-theme="dark"] .activity-more-btn:hover {
+    background-color: hsl(220, 20%, 20%);
 }
 
 /* --- MODO OSCURO --- */
